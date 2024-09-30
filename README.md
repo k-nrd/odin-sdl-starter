@@ -1,8 +1,7 @@
-# Odin Raylib Starter
+# Odin SDL2 Starter
 
 Based on @karl-zylinski's [template](https://github.com/karl-zylinski/odin-raylib-hot-reload-game-template).
-Uses [task](https://github.com/go-task/task) for automation and is more
-bare-bones, code-wise.
+Uses [task](https://github.com/go-task/task) for automation.
 
 ## Usage
 
@@ -35,5 +34,4 @@ task release:build && task release:run
 
 ### To-do
 
-- [ ] Clean up old game libraries after we're done with `dev:lib -w`
 - [ ] Include some assets and watch for changes there as well
