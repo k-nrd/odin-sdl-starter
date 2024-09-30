@@ -1,17 +1,30 @@
 package core
 
 import "core:log"
-import rl "vendor:raylib"
+import sdl "vendor:sdl2"
+
+Window :: struct {
+	handle: ^sdl.Window,
+}
+
+window: Window
 
 window_init :: proc() {
-	rl.InitWindow(1280, 720, "raylib hot-reload")
-	rl.SetTargetFPS(60)
-	rl.SetWindowMonitor(0)
+	sdl.Init(sdl.INIT_VIDEO)
+	window.handle = sdl.CreateWindow(
+		"SDL2 hot-reload",
+		sdl.WINDOWPOS_UNDEFINED,
+		sdl.WINDOWPOS_UNDEFINED,
+		1280,
+		720,
+		sdl.WINDOW_SHOWN,
+	)
 	log.debug("Window initialized")
 }
 
 window_destroy :: proc() {
-	rl.CloseWindow()
+	sdl.DestroyWindow(window.handle)
+	sdl.Quit()
 	log.debug("Window destroyed")
 }
 
@@ -23,13 +36,19 @@ window_step :: proc() -> bool {
 }
 
 window_should_close :: proc() -> bool {
-	return rl.WindowShouldClose()
+	event: sdl.Event
+	for sdl.PollEvent(&event) {
+		if event.type == .QUIT do return true
+	}
+	return false
 }
 
 window_force_reload :: proc() -> bool {
-	return rl.IsKeyPressed(.F5)
+	kb := sdl.GetKeyboardState(nil)
+	return kb[sdl.SCANCODE_F5] != 0
 }
 
 window_force_reset :: proc() -> bool {
-	return rl.IsKeyPressed(.F6)
+	kb := sdl.GetKeyboardState(nil)
+	return kb[sdl.SCANCODE_F6] != 0
 }

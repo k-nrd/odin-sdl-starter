@@ -15,8 +15,6 @@ tasks:
     cmds:
       - task: common:cleanup
         vars: { TARGET: release }
-      - task: common:copy-vendor
-        vars: { TARGET: release }
       - task: build-bin
 
   build-bin:

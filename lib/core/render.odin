@@ -1,25 +1,22 @@
 package core
 
-import rl "vendor:raylib"
-import "core:fmt"
+import sdl "vendor:sdl2"
 
 render :: proc(using state: ^State) {
-	rl.BeginDrawing()
-	defer rl.EndDrawing()
+	sdl.SetRenderDrawColor(renderer, 0, 0, 0, 255)
+	sdl.RenderClear(renderer)
 
-	rl.ClearBackground(rl.BLACK)
+	sdl.SetRenderDrawColor(renderer, 255, 255, 255, 255)
+	player_rect := sdl.Rect{i32(player_position.x), i32(player_position.y), 30, 30}
+	sdl.RenderFillRect(renderer, &player_rect)
 
-	rl.DrawRectangleV(player_position, {10, 20}, rl.WHITE)
-	rl.DrawRectangleV({20, 20}, {10, 10}, rl.RED)
-	rl.DrawRectangleV({-30, -20}, {10, 10}, rl.GREEN)
+	sdl.SetRenderDrawColor(renderer, 255, 0, 0, 255)
+	red_rect := sdl.Rect{20, 20, 10, 10}
+	sdl.RenderFillRect(renderer, &red_rect)
 
-	rl.BeginMode2D(ui_camera())
-	rl.DrawText(
-		fmt.ctprintf("Step count: %v\nPlayer position: %v", step_count, player_position),
-		5,
-		5,
-		8,
-		rl.WHITE,
-	)
-	rl.EndMode2D()
+	sdl.SetRenderDrawColor(renderer, 0, 255, 0, 255)
+	green_rect := sdl.Rect{-30, -20, 10, 10}
+	sdl.RenderFillRect(renderer, &green_rect)
+
+	sdl.RenderPresent(renderer)
 }

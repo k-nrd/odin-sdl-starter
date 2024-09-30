@@ -1,3 +1,3 @@
 package core
 
-Vec2 :: [2]f32
+Vec2f :: [2]f32

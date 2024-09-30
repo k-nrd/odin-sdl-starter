@@ -23,8 +23,6 @@ tasks:
     cmds:
       - task: common:cleanup
         vars: { TARGET: dev }
-      - task: common:copy-vendor
-        vars: { TARGET: dev }
       - task: build-bin
       - task: build-lib
 
@@ -36,8 +34,6 @@ tasks:
       - >
         odin build ../../lib 
         -use-separate-modules 
-        -define:RAYLIB_SHARED=true 
-        -extra-linker-flags:"-Wl,-rpath={{.PWD}}/build/dev/linux,-v"
         -build-mode:dll 
         -out:./game_tmp.so
         -strict-style 
